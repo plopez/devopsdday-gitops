@@ -14,7 +14,7 @@ spec:
     repoURL: https://charts.jetstack.io
     targetRevision: 1.8.2
     helm:
-      releaseName: abhra
+      releaseName: devopsdday
       values: |-
           installCRDs: false
           podDnsPolicy: "None"

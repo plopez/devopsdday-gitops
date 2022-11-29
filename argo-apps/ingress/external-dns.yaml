@@ -14,23 +14,23 @@ spec:
     repoURL: https://charts.bitnami.com/bitnami
     targetRevision: 6.6.0
     helm:
-      releaseName: abhra
+      releaseName: devopsdday
       values: |
           registry: txt
           txtPrefix: external-dns-
           txtOwnerId: k8s
           provider: rfc2136
           rfc2136:
-            host: ns.abhra.shambhala.cloud #51.15.202.177
+            host: ns.gitops.wescale.fr #51.15.202.177
             port: 53
-            zone: abhra.shambhala.cloud.
+            zone: gitops.wescale.fr.
             secretName: ns-dig
             tsigSecretAlg: hmac-sha256
-            tsigKeyname: abhra.shambhala.cloud.
+            tsigKeyname: gitops.wescale.fr
             tsigAxfr: false
             minTTL: 300s
           source: ingress
-          domain-filter: abhra.shambhala.cloud
+          domain-filter: gitops.wescale.fr
           logLevel: debug
   destination:
     namespace: cluster-tools

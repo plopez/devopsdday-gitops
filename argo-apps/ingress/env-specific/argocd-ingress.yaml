@@ -18,11 +18,11 @@ spec:
           pathType: ImplementationSpecific
           backend:
             service:
-             name: abhra-argo-argocd-server
+             name: devopsdday-argo-argocd-server
              port:
                number: 80
-      host: cd.argo.staging.abhra.shambhala.cloud
+      host: cd.argo.staging.gitops.wescale.fr
   tls:
     - hosts:
-      - cd.argo.staging.abhra.shambhala.cloud
+      - cd.argo.staging.gitops.wescale.fr
       secretName: argocd-server-cert

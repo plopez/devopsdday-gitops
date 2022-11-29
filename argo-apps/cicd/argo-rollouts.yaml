@@ -17,7 +17,7 @@ spec:
         repoURL: https://argoproj.github.io/argo-helm
         targetRevision: 2.17.0
         helm:
-          releaseName: abhra
+          releaseName: devopsdday
           values: |
             dashboard:
               enabled: true
@@ -25,16 +25,16 @@ spec:
                 enabled: true
                 ingressClassName: nginx
                 annotations:
-                  cert-manager.io/cluster-issuer: 'letsencrypt-{{metadata.labels.abhra.shambhala/environment-type}}'
+                  cert-manager.io/cluster-issuer: 'letsencrypt-{{metadata.labels.devopsdday/environment-type}}'
                   kubernetes.io/tls-acme: 'true'
                 hosts: 
-                  - rollouts.{{metadata.labels.abhra.shambhala/url-base-path}}
+                  - rollouts.{{metadata.labels.devopsdday/url-base-path}}
                 path: /
                 pathType: Prefix
                 tls: 
                   - secretName: argo-rollouts-server-cert
                     hosts:
-                      - rollouts.{{metadata.labels.abhra.shambhala/url-base-path}}
+                      - rollouts.{{metadata.labels.devopsdday/url-base-path}}
       destination:
         namespace: cd-tools
         server: https://kubernetes.default.svc

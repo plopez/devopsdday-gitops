@@ -14,7 +14,7 @@ spec:
     repoURL: https://argoproj.github.io/argo-helm
     targetRevision: 1.13.0 #2.0.3 #1.13.0
     helm:
-      releaseName: abhra
+      releaseName: devopsdday
   destination:
     namespace: cd-tools
     server: https://kubernetes.default.svc

@@ -7,7 +7,7 @@ argo-cd:
         namespace: cd-tools
         additionalAnnotations:
           app.kubernetes.io/managed-by : Helm
-          meta.helm.sh/release-name: abhra
+          meta.helm.sh/release-name: devopsdday
           meta.helm.sh/release-namespace: cd-tools
         finalizers:
         - resources-finalizer.argocd.argoproj.io
@@ -35,7 +35,7 @@ argo-cd:
           server: https://kubernetes.default.svc
         project: tools
         source:
-          repoURL: https://github.com/wescale/abhra-catherine
+          repoURL: https://github.com/plopez/devopsdday-gitops
           targetRevision: HEAD
           path: argo-apps/ingress
         syncPolicy:
@@ -53,7 +53,7 @@ argo-cd:
           server: https://kubernetes.default.svc
         project: tools
         source:
-          repoURL: https://github.com/wescale/abhra-catherine
+          repoURL: https://github.com/plopez/devopsdday-gitops
           targetRevision: HEAD
           path: argo-apps/monitoring
         syncPolicy:
@@ -71,7 +71,7 @@ argo-cd:
           server: https://kubernetes.default.svc
         project: tools
         source:
-          repoURL: https://github.com/wescale/abhra-catherine
+          repoURL: https://github.com/plopez/devopsdday-gitops
           targetRevision: HEAD
           path: argo-apps/cicd
         syncPolicy:
@@ -80,53 +80,53 @@ argo-cd:
             prune: true
           syncOptions:
           - CreateNamespace=true
-      - name: guru
-        namespace: cd-tools
-        additionalAnnotations:
-          argocd.argoproj.io/sync-wave: "200"
-        destination:
-          namespace: cluster-tools
-          server: https://kubernetes.default.svc
-        project: tools
-        source:
-          repoURL: https://gitlab.com/abhra-shambhala/guru.git
-          targetRevision: HEAD
-          path: argo-apps
-        syncPolicy:
-          automated:
-            selfHeal: true
-            prune: true
-          syncOptions:
-          - CreateNamespace=true
+      # - name: guru
+      #   namespace: cd-tools
+      #   additionalAnnotations:
+      #     argocd.argoproj.io/sync-wave: "200"
+      #   destination:
+      #     namespace: cluster-tools
+      #     server: https://kubernetes.default.svc
+      #   project: tools
+      #   source:
+      #     repoURL: https://gitlab.com/abhra-shambhala/guru.git
+      #     targetRevision: HEAD
+      #     path: argo-apps
+      #   syncPolicy:
+      #     automated:
+      #       selfHeal: true
+      #       prune: true
+      #     syncOptions:
+      #     - CreateNamespace=true
     rbacConfig:
       policy.default: role:admin
     extraArgs:
       - --insecure
     config:
-      url: https://cd.argo.abhra.shambhala.cloud
+      url: https://cd.argo.gitops.wescale.fr
       repositories: |
         - type: helm
           name: argo-cd
           url: https://argoproj.github.io/argo-helm
         - type: git
-          url: https://github.com/wescale/abhra-catherine
-        - type: git
-          url: https://gitlab.com/abhra-shambhala/guru.git
-          passwordSecret:
-            name: gitlab-guru
-            key: token
-          usernameSecret:
-            name: gitlab-guru
-            key: username
-        - type: helm
-          name: guru-stable
-          url: https://gitlab.com/api/v4/projects/abhra-shambhala%2Fguru/packages/helm/stable
-          passwordSecret:
-            name: gitlab-guru
-            key: token
-          usernameSecret:
-            name: gitlab-guru
-            key: username
+          url: https://github.com/plopez/devopsdday-gitops
+        # - type: git
+        #   url: https://gitlab.com/abhra-shambhala/guru.git
+        #   passwordSecret:
+        #     name: gitlab-guru
+        #     key: token
+        #   usernameSecret:
+        #     name: gitlab-guru
+        #     key: username
+        # - type: helm
+        #   name: guru-stable
+        #   url: https://gitlab.com/api/v4/projects/abhra-shambhala%2Fguru/packages/helm/stable
+        #   passwordSecret:
+        #     name: gitlab-guru
+        #     key: token
+        #   usernameSecret:
+        #     name: gitlab-guru
+        #     key: username
       dex.config: |
         connectors:
         - config:

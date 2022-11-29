@@ -1,7 +1,7 @@
 argo-cd:
   server:
     config:
-      url: https://cd.argo.staging.abhra.shambhala.cloud
+      url: https://cd.argo.staging.gitops.wescale.fr
     additionalApplications:
       - name: ingress
         namespace: cd-tools
@@ -12,8 +12,8 @@ argo-cd:
           server: https://kubernetes.default.svc
         project: tools
         source:
-          repoURL: https://github.com/wescale/abhra-catherine
-          targetRevision: staging
+          repoURL: https://github.com/plopez/devopsdday-gitops
+          targetRevision: HEAD
           path: argo-apps/ingress
         syncPolicy:
           automated:
@@ -30,8 +30,8 @@ argo-cd:
           server: https://kubernetes.default.svc
         project: tools
         source:
-          repoURL: https://github.com/wescale/abhra-catherine
-          targetRevision: staging
+          repoURL: https://github.com/plopez/devopsdday-gitops
+          targetRevision: HEAD
           path: argo-apps/monitoring
         syncPolicy:
           automated:
@@ -48,8 +48,8 @@ argo-cd:
           server: https://kubernetes.default.svc
         project: tools
         source:
-          repoURL: https://github.com/wescale/abhra-catherine
-          targetRevision: staging
+          repoURL: https://github.com/plopez/devopsdday-gitops
+          targetRevision: HEAD
           path: argo-apps/cicd
         syncPolicy:
           automated:
@@ -57,21 +57,21 @@ argo-cd:
             prune: true
           syncOptions:
           - CreateNamespace=true
-      - name: guru
-        namespace: cd-tools
-        additionalAnnotations:
-          argocd.argoproj.io/sync-wave: "200"
-        destination:
-          namespace: cluster-tools
-          server: https://kubernetes.default.svc
-        project: tools
-        source:
-          repoURL: https://gitlab.com/abhra-shambhala/guru.git
-          targetRevision: staging
-          path: argo-apps
-        syncPolicy:
-          automated:
-            selfHeal: true
-            prune: true
-          syncOptions:
-          - CreateNamespace=true
+      # - name: guru
+      #   namespace: cd-tools
+      #   additionalAnnotations:
+      #     argocd.argoproj.io/sync-wave: "200"
+      #   destination:
+      #     namespace: cluster-tools
+      #     server: https://kubernetes.default.svc
+      #   project: tools
+      #   source:
+      #     repoURL: https://gitlab.com/abhra-shambhala/guru.git
+      #     targetRevision: staging
+      #     path: argo-apps
+      #   syncPolicy:
+      #     automated:
+      #       selfHeal: true
+      #       prune: true
+      #     syncOptions:
+      #     - CreateNamespace=true

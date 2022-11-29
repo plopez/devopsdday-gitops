@@ -7,16 +7,16 @@
   vars:
     tooling_namespace: "cd-tools"
 
-    sealed_secret_helm_deploy_name: "abhra"
+    sealed_secret_helm_deploy_name: "devopsdday"
     sealed_secret_chart_path: "{{ project_root }}/helm/sealed-secrets"
     sealed_secret_master_key_path: "{{ project_root }}/secrets/master.key"
     sealed_secret_google_sso_path: "{{ project_root }}/resources/secrets/google-secret.yaml"
     sealed_secret_gitlab_credentials_path: "{{ project_root }}/resources/secrets/gitlab-guru.yaml"
 
-    argocd_helm_deploy_name: "abhra-argo"
+    argocd_helm_deploy_name: "devopsdday-argo"
     argocd_cluster_name: "staging"
     argocd_cluster_experimental: true
-    argocd_cluster_url_base_path: "{{ argocd_cluster_name }}.abhra.shambhala.cloud"
+    argocd_cluster_url_base_path: "{{ argocd_cluster_name }}.gitops.wescale.fr"
     argocd_chart_path: "{{ project_root }}/helm/argo-cd"
     gitlab_branch: "{{ argocd_cluster_name == 'production' | ternary('master', argocd_cluster_name) }}"
 
@@ -56,10 +56,10 @@
               managed-by: argocd.argoproj.io
             labels:
               argocd.argoproj.io/secret-type: cluster
-              abhra.shambhala/environment-type: "{{ argocd_cluster_name }}"
-              abhra.shambhala/url-base-path: "{{ argocd_cluster_url_base_path }}"
-              abhra.shambhala/experimental: "{{ argocd_cluster_experimental | string | lower}}"
-              abhra.shambhala/target-revision: "{{ gitlab_branch | string}}"
+              devopsdday/environment-type: "{{ argocd_cluster_name }}"
+              devopsdday/url-base-path: "{{ argocd_cluster_url_base_path }}"
+              devopsdday/experimental: "{{ argocd_cluster_experimental | string | lower}}"
+              devopsdday/target-revision: "{{ gitlab_branch | string}}"
             name: cluster-kubernetes.default.svc
             namespace: "{{ tooling_namespace }}"
           type: Opaque (edited)
