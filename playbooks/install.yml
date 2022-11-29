@@ -18,7 +18,7 @@
     argocd_cluster_experimental: true
     argocd_cluster_url_base_path: "{{ argocd_cluster_name }}.gitops.wescale.fr"
     argocd_chart_path: "{{ project_root }}/helm/argo-cd"
-    gitlab_branch: "{{ argocd_cluster_name == 'production' | ternary('master', argocd_cluster_name) }}"
+    gitlab_branch: "{{ argocd_cluster_name == 'production' | ternary('main', argocd_cluster_name) }}"
 
   tasks:
     - name: Assert cluster name is supplied
