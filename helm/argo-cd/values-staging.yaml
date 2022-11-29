@@ -57,21 +57,60 @@ argo-cd:
             prune: true
           syncOptions:
           - CreateNamespace=true
-      # - name: guru
-      #   namespace: cd-tools
-      #   additionalAnnotations:
-      #     argocd.argoproj.io/sync-wave: "200"
-      #   destination:
-      #     namespace: cluster-tools
-      #     server: https://kubernetes.default.svc
-      #   project: tools
-      #   source:
-      #     repoURL: https://gitlab.com/abhra-shambhala/guru.git
-      #     targetRevision: staging
-      #     path: argo-apps
-      #   syncPolicy:
-      #     automated:
-      #       selfHeal: true
-      #       prune: true
-      #     syncOptions:
-      #     - CreateNamespace=true
+      - name: guru
+        namespace: cd-tools
+        additionalAnnotations:
+          argocd.argoproj.io/sync-wave: "200"
+        destination:
+          namespace: cluster-tools
+          server: https://kubernetes.default.svc
+        project: tools
+        source:
+          repoURL: https://gitlab.com/abhra-shambhala/guru.git
+          targetRevision: stadium
+          path: argo-apps
+        syncPolicy:
+          automated:
+            selfHeal: true
+            prune: true
+          syncOptions:
+          - CreateNamespace=true
+    rbacConfig:
+      policy.default: role:admin
+    extraArgs:
+      - --insecure
+    config:
+      url: https://cd.argo.gitops.wescale.fr
+      repositories: |
+        - type: helm
+          name: argo-cd
+          url: https://argoproj.github.io/argo-helm
+        - type: git
+          url: https://github.com/plopez/devopsdday-gitops
+        - type: git
+          url: https://gitlab.com/abhra-shambhala/guru.git
+          passwordSecret:
+            name: gitlab-guru
+            key: token
+          usernameSecret:
+            name: gitlab-guru
+            key: username
+        - type: helm
+          name: guru-stable
+          url: https://gitlab.com/api/v4/projects/abhra-shambhala%2Fguru/packages/helm/stable
+          passwordSecret:
+            name: gitlab-guru
+            key: token
+          usernameSecret:
+            name: gitlab-guru
+            key: username
+      dex.config: |
+        connectors:
+        - config:
+            issuer: https://accounts.google.com
+            clientID: $google-secret:clientID
+            clientSecret: $google-secret:clientSecret
+          type: oidc
+          id: google
+          name: Google
+
