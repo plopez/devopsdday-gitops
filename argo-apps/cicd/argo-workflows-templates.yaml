@@ -54,11 +54,12 @@ spec:
         args: 
           - "-c"
           - >-
-            git clone {{workflow.parameters.gitlabsshurl}} &&
+            git clone {{workflow.parameters.gitlaburl}} &&
             cd guru &&
             git checkout stadium &&
             cd argo-apps/stadium-apps &&
             sed -i 's/\({{inputs.parameters.project}}-image-tag:\)\(.*\)/\1 "{{workflow.parameters.commitId}}"/' config.yaml &&
+            git remote set-url origin {{workflow.parameters.gitlaburl}} &&
             git config --global user.email "cto@wescale.fr" &&
             git config --global user.name "ArgoWorkflow" &&
             git commit -am "Update {{inputs.parameters.project}} with tag {{workflow.parameters.commitId}}" &&
