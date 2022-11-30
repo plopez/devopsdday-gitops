@@ -57,7 +57,7 @@ argo-cd:
             prune: true
           syncOptions:
           - CreateNamespace=true
-      - name: guru
+      - name: stadium
         namespace: cd-tools
         additionalAnnotations:
           argocd.argoproj.io/sync-wave: "40"
