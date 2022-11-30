@@ -54,7 +54,6 @@ spec:
         args: 
           - "-c"
           - >-
-            apk add curl && 
             git clone {{workflow.parameters.gitlaburl}} &&
             cd guru &&
             git checkout stadium &&
@@ -62,7 +61,6 @@ spec:
             sed -i 's/\({{inputs.parameters.project}}-image-tag:\)\(.*\)/\1 "{{workflow.parameters.commitId}}"/' config.yaml &&
             git commit -am "Update {{inputs.parameters.project}} with tag {{workflow.parameters.commitId}}" &&
             git push origin stadium
-            #curl --request POST --form 'chart=@'$TGZ_FILE'' --user $GIT_USERNAME:$GIT_PASSWORD https://gitlab.com/api/v4/projects/abhra-shambhala%2Fguru/packages/helm/api/stable/charts
         env:
           - name: GIT_USERNAME 
             valueFrom:
