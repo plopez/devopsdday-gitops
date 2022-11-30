@@ -29,10 +29,41 @@ spec:
             --context-sub-path=src/{{inputs.parameters.project}}
             --dockerfile=Dockerfile 
             --verbosity=debug
-            --destination=rg.fr-par.scw.cloud/guru/{{inputs.parameters.project}}:{{workflow.parameters.commitId}} 
+            --destination=rg.fr-par.scw.cloud/guru/{{inputs.parameters.project}}:{{workflow.parameters.commitId}} &&
+            echo "{{workflow.parameters.commitId}}"
         volumeMounts:
           - name: kaniko-secret
             mountPath: /kaniko/.docker/
+        env:
+          - name: GIT_USERNAME 
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-guru
+                key: username
+          - name: GIT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-guru
+                key: token
+    - name: update-deployement-registry
+      inputs:
+          parameters:
+            - name: project
+      container:
+        image: alpine/helm
+        command: [/bin/sh]
+        args: 
+          - "-c"
+          - >-
+            apk add curl && 
+            git clone {{workflow.parameters.gitlaburl}} &&
+            cd guru &&
+            git checkout stadium &&
+            cd argo-apps/stadium-apps &&
+            sed -i 's/\({{inputs.parameters.project}}-image-tag:\)\(.*\)/\1 "{{workflow.parameters.commitId}}"/' config.yaml &&
+            git commit -am "Update {{inputs.parameters.project}} with tag {{workflow.parameters.commitId}}" &&
+            git push origin stadium
+            #curl --request POST --form 'chart=@'$TGZ_FILE'' --user $GIT_USERNAME:$GIT_PASSWORD https://gitlab.com/api/v4/projects/abhra-shambhala%2Fguru/packages/helm/api/stable/charts
         env:
           - name: GIT_USERNAME 
             valueFrom:
@@ -92,6 +123,7 @@ spec:
               secretKeyRef:
                 name: gitlab-guru
                 key: token
+      
 
 
           
