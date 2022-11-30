@@ -5,7 +5,7 @@ metadata:
   name: argo-rollouts-as
   namespace: cd-tools
   annotations:
-    argocd.argoproj.io/sync-wave: "50"
+    argocd.argoproj.io/sync-wave: "80"
 spec:
   generators:
   - clusters: {}

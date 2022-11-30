@@ -6,7 +6,7 @@ argo-cd:
       - name: ingress
         namespace: cd-tools
         additionalAnnotations:
-          argocd.argoproj.io/sync-wave: "30"
+          argocd.argoproj.io/sync-wave: "10"
         destination:
           namespace: cluster-tools
           server: https://kubernetes.default.svc
@@ -24,7 +24,7 @@ argo-cd:
       - name: monitoring
         namespace: cd-tools
         additionalAnnotations:
-          argocd.argoproj.io/sync-wave: "50"
+          argocd.argoproj.io/sync-wave: "20"
         destination:
           namespace: cluster-tools
           server: https://kubernetes.default.svc
@@ -42,7 +42,7 @@ argo-cd:
       - name: cicd
         namespace: cd-tools
         additionalAnnotations:
-          argocd.argoproj.io/sync-wave: "100"
+          argocd.argoproj.io/sync-wave: "30"
         destination:
           namespace: cluster-tools
           server: https://kubernetes.default.svc
@@ -60,7 +60,7 @@ argo-cd:
       - name: guru
         namespace: cd-tools
         additionalAnnotations:
-          argocd.argoproj.io/sync-wave: "200"
+          argocd.argoproj.io/sync-wave: "40"
         destination:
           namespace: cluster-tools
           server: https://kubernetes.default.svc
@@ -80,7 +80,7 @@ argo-cd:
     extraArgs:
       - --insecure
     config:
-      url: https://cd.argo.gitops.wescale.fr
+      url: https://cd.argo.staging.gitops.wescale.fr
       repositories: |
         - type: helm
           name: argo-cd

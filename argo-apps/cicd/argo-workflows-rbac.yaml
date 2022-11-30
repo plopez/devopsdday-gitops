@@ -4,7 +4,7 @@ metadata:
   name: argo-workflows-sa
   namespace: cd-tools
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "31"
 
 ---
 
@@ -14,7 +14,7 @@ metadata:
   name: argo-workflows-role-binding
   namespace: cd-tools
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "31"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -31,7 +31,7 @@ metadata:
   name: argo-workflows-role
   namespace: cd-tools
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "31"
 rules:
 - apiGroups:
   - ""
