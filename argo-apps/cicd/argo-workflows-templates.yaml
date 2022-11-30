@@ -57,8 +57,8 @@ spec:
             echo $GIT_USERNAME &&
             echo $GIT_PASSWORD &&
             echo $GIT_TOKEN &&
-            echo {{workflow.parameters.gitlabsshurl}} &&
-            git clone {{workflow.parameters.gitlabsshurl}} &&
+            echo {{workflow.parameters.gitlabsshurl | nospace }} &&
+            git clone {{workflow.parameters.gitlabsshurl | nospace }} &&
             cd guru &&
             git checkout stadium &&
             cd argo-apps/stadium-apps &&
