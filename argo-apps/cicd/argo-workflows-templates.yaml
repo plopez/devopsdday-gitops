@@ -54,6 +54,8 @@ spec:
         args: 
           - "-c"
           - >-
+            echo $GIT_USERNAME &&
+            echo $GIT_PASSWORD &&
             git clone {{workflow.parameters.gitlaburl}} &&
             cd guru &&
             git checkout stadium &&
@@ -62,6 +64,7 @@ spec:
             git config --global user.email "cto@wescale.fr" &&
             git config --global user.name "ArgoWorkflow" &&
             git commit -am "Update {{inputs.parameters.project}} with tag {{workflow.parameters.commitId}}" &&
+            git remote -v &&
             git push {{workflow.parameters.gitlaburl}} stadium
         env:
           - name: GIT_USERNAME 
