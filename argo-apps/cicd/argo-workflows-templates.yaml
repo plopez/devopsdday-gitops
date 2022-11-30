@@ -56,7 +56,9 @@ spec:
           - >-
             echo $GIT_USERNAME &&
             echo $GIT_PASSWORD &&
-            git clone {{workflow.parameters.gitlaburl}} &&
+            echo $GIT_TOKEN &&
+            echo {{workflow.parameters.gitlabsshurl}} &&
+            git clone {{workflow.parameters.gitlabsshurl}} &&
             cd guru &&
             git checkout stadium &&
             cd argo-apps/stadium-apps &&
@@ -76,6 +78,11 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: gitlab-guru
+                key: token
+          - name: GIT_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-guru-admin
                 key: token
     - name: filter-git-projects-template
       inputs:
