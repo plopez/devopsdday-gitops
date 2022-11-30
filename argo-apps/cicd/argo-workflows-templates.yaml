@@ -59,6 +59,8 @@ spec:
             git checkout stadium &&
             cd argo-apps/stadium-apps &&
             sed -i 's/\({{inputs.parameters.project}}-image-tag:\)\(.*\)/\1 "{{workflow.parameters.commitId}}"/' config.yaml &&
+            git config --global user.email "cto@wescale.fr" &&
+            git config --global user.name "ArgoWorkflow" &&
             git commit -am "Update {{inputs.parameters.project}} with tag {{workflow.parameters.commitId}}" &&
             git push origin stadium
         env:
