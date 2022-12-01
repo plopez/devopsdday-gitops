@@ -14,7 +14,7 @@
     sealed_secret_gitlab_credentials_path: "{{ project_root }}/resources/secrets/gitlab-guru.yaml"
 
     argocd_helm_deploy_name: "devopsdday-argo"
-    argocd_cluster_name: "staging"
+    argocd_cluster_name: "production"
     argocd_cluster_experimental: true
     argocd_cluster_url_base_path: "{{ argocd_cluster_name }}.gitops.wescale.fr"
     argocd_chart_path: "{{ project_root }}/helm/argo-cd"
